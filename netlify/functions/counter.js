@@ -1,26 +1,31 @@
-export default async function handler(req, res) {
+export async function handler(event, context) {
   const token = "ut_IbbitwZM6qaYE00SoWGKB3n3h6PAJPfbKKxA3xbD";
   const namespace = "split12x";
-  const counter = "downloads55678";
-
-  const url = `https://api.counterapi.dev/v1/${namespace}/${counter}/up`;
+  const name = "downloads55678";
 
   try {
-    const apiRes = await fetch(url, {
+    const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${name}/up`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
 
-    if (!apiRes.ok) {
-      return res.status(apiRes.status).json({ error: "API request failed" });
-    }
+    const data = await response.json();
 
-    const data = await apiRes.json();
-    return res.status(200).json(data);
-  } catch (err) {
-    console.error("Error hitting CounterAPI:", err);
-    return res.status(500).json({ error: "Failed to increment counter" });
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        count: data.count || 0
+      })
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: "Error hitting CounterAPI",
+        details: error.message
+      })
+    };
   }
 }
