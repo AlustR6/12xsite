@@ -12,6 +12,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="/" class="header-logo">
+      <img src="Split12xLogo.png" alt="Split 12x Logo" />
+      <span>Split 12x</span>
+    </a>
+    <nav class="header-nav">
+      <a href="#how-to-use">How to Use</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
   <main class="card">
     <div class="content">
       <div class="text-section">
@@ -33,7 +48,6 @@
   <script>
     const counterEl = document.getElementById("downloadCount");
 
-    // Get current count
     fetch("/.netlify/functions/counter")
       .then(res => res.ok ? res.json() : Promise.reject())
       .then(data => {
@@ -43,7 +57,6 @@
         counterEl.textContent = "Download count unavailable.";
       });
 
-    // Update count only when download is clicked
     function trackDownload() {
       fetch("/.netlify/functions/counter", { method: "POST" })
         .then(res => res.ok ? res.json() : Promise.reject())
