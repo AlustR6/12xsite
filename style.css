@@ -11,48 +11,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
-/* Header styles */
-.header {
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  padding: 16px 32px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-  margin-bottom: 40px;
+/* Top Logo */
+.logo-top {
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.logo-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #007bff;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.logo-link img {
-  width: 32px;
-  height: 32px;
-  margin-right: 10px;
-}
-
-.nav-links a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.nav-links a:hover {
-  color: #007bff;
+.logo-top img {
+  width: 140px;
+  height: auto;
 }
 
 /* Card container */
@@ -79,12 +49,6 @@ body {
   flex: 1;
   min-width: 280px;
   text-align: center;
-}
-
-.logo {
-  width: 120px;
-  height: auto;
-  margin-bottom: 20px;
 }
 
 h1 {
@@ -168,7 +132,7 @@ h1 {
 }
 
 .step h3 {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   color: #007bff;
   margin-bottom: 8px;
 }
