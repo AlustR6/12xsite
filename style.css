@@ -14,43 +14,41 @@ body {
   padding: 20px;
 }
 
-/* Header styling */
+/* Header styles */
 .header {
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  padding: 20px 40px;
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1100px;
   width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  margin-bottom: 40px;
 }
 
 .logo-link {
   display: flex;
   align-items: center;
   text-decoration: none;
+  color: #007bff;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .logo-link img {
-  height: 30px;
+  width: 32px;
+  height: 32px;
   margin-right: 10px;
 }
 
-.logo-link span {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #007bff;
-}
-
 .nav-links a {
-  margin-left: 25px;
+  margin-left: 20px;
   text-decoration: none;
   color: #333;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
@@ -65,6 +63,7 @@ body {
   padding: 40px;
   max-width: 900px;
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .content {
@@ -142,4 +141,40 @@ h1 {
   max-width: 100%;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* How to Use section */
+.how-to-use {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  max-width: 900px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.how-to-use h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.step h3 {
+  font-size: 1.25rem;
+  color: #007bff;
+  margin-bottom: 8px;
+}
+
+.step p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
 }
