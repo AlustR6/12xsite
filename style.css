@@ -188,3 +188,24 @@ body {
     margin-bottom: 20px;
   }
 }
+
+/* Decorative emblem styling */
+.emblem {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  opacity: 0.06;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.emblem-top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.emblem-bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
