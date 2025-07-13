@@ -20,9 +20,13 @@ body {
   text-align: center;
 }
 
-.logo-top img {
-  width: 160px;
-  height: auto;
+.logo-top h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.logo-top .highlight {
+  color: #007bff;
 }
 
 /* Card container */
@@ -121,36 +125,48 @@ body {
 .how-to-use h2 {
   text-align: center;
   font-size: 1.75rem;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   color: #222;
 }
 
 .steps {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 40px;
 }
 
 .step {
   display: flex;
-  gap: 20px;
+  gap: 30px;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
+.step-left {
+  flex-direction: row;
+}
+
+.step-right {
+  flex-direction: row-reverse;
+}
+
 .step-image {
-  width: 80px;
-  height: 80px;
+  width: 200px;
+  height: auto;
   object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .step-text {
   flex: 1;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .step h3 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #007bff;
   margin-bottom: 8px;
 }
@@ -159,4 +175,16 @@ body {
   font-size: 1rem;
   color: #444;
   line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .step {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .step-image {
+    margin-bottom: 20px;
+  }
 }
