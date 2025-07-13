@@ -1,31 +1,34 @@
-export async function handler(event, context) {
-  const token = "ut_IbbitwZM6qaYE00SoWGKB3n3h6PAJPfbKKxA3xbD";
-  const namespace = "split12x";
-  const name = "downloads55678";
+import fs from 'fs';
+import path from 'path';
 
+const COUNTER_FILE = path.resolve('/tmp/count.json');
+
+function readCount() {
   try {
-    const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${name}/up`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    const data = await response.json();
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        count: data.count || 0
-      })
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        error: "Error hitting CounterAPI",
-        details: error.message
-      })
-    };
+    const data = fs.readFileSync(COUNTER_FILE, 'utf8');
+    return JSON.parse(data).count || 0;
+  } catch {
+    return 0;
   }
+}
+
+function writeCount(count) {
+  fs.writeFileSync(COUNTER_FILE, JSON.stringify({ count }));
+}
+
+export async function handler(event) {
+  let count = readCount();
+
+  if (event.httpMethod === 'POST') {
+    count++;
+    writeCount(count);
+  }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ count }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
 }
