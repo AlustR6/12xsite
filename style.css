@@ -8,25 +8,37 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to bottom right, #f5faff, #e8f0ff);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
+  padding: 20px;
 }
 
-/* Top Logo */
-.logo-top {
-  margin-bottom: 30px;
+/* Decorative Emblems */
+.emblem {
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  opacity: 0.08;
+  z-index: 0;
+}
+
+.emblem-top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.emblem-bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+/* Main logo */
+.main-header {
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.logo-top h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-}
-
-.logo-top .highlight {
-  color: #007bff;
+.main-logo {
+  width: 120px;
+  height: auto;
 }
 
 /* Card container */
@@ -35,11 +47,14 @@ body {
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   padding: 40px;
-  max-width: 900px;
+  max-width: 960px;
   width: 100%;
-  margin-bottom: 40px;
+  margin: 20px auto;
+  position: relative;
+  z-index: 1;
 }
 
+/* Content layout */
 .content {
   display: flex;
   gap: 40px;
@@ -48,7 +63,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Text content */
 .text-section {
   flex: 1;
   min-width: 280px;
@@ -56,7 +70,7 @@ body {
 }
 
 .logo-inline {
-  width: 120px;
+  width: 100px;
   height: auto;
   margin-bottom: 20px;
 }
@@ -68,19 +82,6 @@ body {
   line-height: 1.5;
 }
 
-.download-count {
-  font-size: 0.9rem;
-  color: #444;
-  margin-top: 15px;
-}
-
-.note {
-  font-size: 0.85rem;
-  color: #888;
-  margin-top: 20px;
-}
-
-/* Download button */
 .download-button {
   display: inline-block;
   background-color: #007bff;
@@ -97,7 +98,18 @@ body {
   transform: translateY(-2px);
 }
 
-/* Example image */
+.download-count {
+  font-size: 0.9rem;
+  color: #444;
+  margin-top: 15px;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 20px;
+}
+
 .image-section {
   flex: 1;
   min-width: 280px;
@@ -112,79 +124,42 @@ body {
 }
 
 /* How to Use section */
-.how-to-use {
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  padding: 40px;
-  max-width: 900px;
-  width: 100%;
-  margin-bottom: 40px;
-}
-
 .how-to-use h2 {
   text-align: center;
-  font-size: 1.75rem;
-  margin-bottom: 40px;
-  color: #222;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
 }
 
-.steps {
+.how-step {
   display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.step {
-  display: flex;
-  gap: 30px;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 30px;
 }
 
-.step-left {
-  flex-direction: row;
-}
-
-.step-right {
+.how-step.reverse {
   flex-direction: row-reverse;
 }
 
-.step-image {
-  width: 200px;
+.how-image {
+  width: 180px;
   height: auto;
-  object-fit: contain;
-  flex-shrink: 0;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.step-text {
-  flex: 1;
-  min-width: 220px;
-}
-
-.step h3 {
+.how-text h3 {
   font-size: 1.2rem;
   color: #007bff;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.step p {
-  font-size: 1rem;
-  color: #444;
-  line-height: 1.6;
+.how-text h3 span {
+  color: #000;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .step {
-    flex-direction: column !important;
-    text-align: center;
-  }
-
-  .step-image {
-    margin-bottom: 20px;
-  }
+.how-text p {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }

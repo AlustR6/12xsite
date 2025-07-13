@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="LK_pZZTzdzV5l4wODIUJ3k2Yi003BzjUcP0Yzzrl6OI" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="Split 12x is a clean and intuitive splits software for speedrunners. Track all your split times. Free and easy to use">
-  <meta name="keywords" content="splits software, speedrun timer, LiveSplit alternative, speedrunning tool, splits tracker, splits overlay, timer overlay, splits, speedrun timer, free splits timer, free splits software, free timer, timer,">
+  <meta name="keywords" content="splits software, speedrun timer, LiveSplit alternative, speedrunning tool, splits tracker, splits overlay, timer overlay">
+  <meta name="google-site-verification" content="LK_pZZTzdzV5l4wODIUJ3k2Yi003BzjUcP0Yzzrl6OI" />
   <link rel="canonical" href="https://split12x.org" />
   <link rel="icon" type="image/png" href="favicon.png">
   <title>Split 12x - Simple Split Timer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="logo-top">
-    <h1><span>Split</span> <span class="highlight">12x</span></h1>
-  </div>
 
+  <!-- Emblem decorative logo -->
+  <img src="emblem.png" alt="Split 12x Emblem" class="emblem emblem-top-left">
+  <img src="emblem.png" alt="Split 12x Emblem" class="emblem emblem-bottom-right">
+
+  <!-- Main Title -->
+  <header class="main-header">
+    <img src="Split12xLogo.png" alt="Split 12x Logo" class="main-logo">
+  </header>
+
+  <!-- Card Section -->
   <main class="card">
     <div class="content">
       <div class="text-section">
-        <img src="Split12xLogo.png" alt="Split 12x Logo" class="logo-inline">
+        <img src="Split12xLogo.png" alt="Split 12x Logo" class="logo-inline" />
         <p class="subtitle">A simple and elegant split timer for speedrunners and focused tasks.</p>
         <a href="Split12x.zip" download class="download-button" onclick="trackDownload()">Download</a>
         <p class="download-count" id="downloadCount">Loading download count...</p>
@@ -31,29 +38,31 @@
     </div>
   </main>
 
-  <section class="how-to-use" id="how-to-use">
+  <!-- How to Use Section -->
+  <section class="card how-to-use">
     <h2>How to Use</h2>
-    <div class="steps">
-      <div class="step step-left">
-        <img src="step1.png" alt="Step 1" class="step-image">
-        <div class="step-text">
-          <h3>1. Download & Open</h3>
-          <p>Click the download button above, unzip the file, and open the Split12x.exe.</p>
-        </div>
+
+    <div class="how-step">
+      <img src="placeholder1.png" alt="Step 1" class="how-image">
+      <div class="how-text">
+        <h3><span>1.</span> Download & Open</h3>
+        <p>Click the download button above, unzip the file, and open the Split12x.exe.</p>
       </div>
-      <div class="step step-right">
-        <div class="step-text">
-          <h3>2. Edit Splits</h3>
-          <p>Click the “Edit Splits” tab and enter the names of your segments for tracking.</p>
-        </div>
-        <img src="step2.png" alt="Step 2" class="step-image">
+    </div>
+
+    <div class="how-step reverse">
+      <img src="placeholder2.png" alt="Step 2" class="how-image">
+      <div class="how-text">
+        <h3><span>2.</span> Edit Splits</h3>
+        <p>Click the “Edit Splits” tab and enter the names of your segments for tracking.</p>
       </div>
-      <div class="step step-left">
-        <img src="step3.png" alt="Step 3" class="step-image">
-        <div class="step-text">
-          <h3>3. Start Timing</h3>
-          <p>Use the “Keybinds” tab to set your start, split, and reset keys. Begin your run! Default keybind to toggle interactive mode is "T".</p>
-        </div>
+    </div>
+
+    <div class="how-step">
+      <img src="placeholder3.png" alt="Step 3" class="how-image">
+      <div class="how-text">
+        <h3><span>3.</span> Start Timing</h3>
+        <p>Use the “Keybinds” tab to set your start, split, and reset keys. Begin your run!</p>
       </div>
     </div>
   </section>
@@ -61,6 +70,7 @@
   <script>
     const counterEl = document.getElementById("downloadCount");
 
+    // Fetch global count from Netlify Function
     fetch("/.netlify/functions/counter")
       .then(res => {
         if (!res.ok) throw new Error("Failed to fetch count.");
@@ -73,6 +83,7 @@
         counterEl.textContent = "Download count unavailable.";
       });
 
+    // Update counter on download
     function trackDownload() {
       fetch("/.netlify/functions/counter", { method: "POST" })
         .then(res => res.json())
@@ -84,5 +95,6 @@
         });
     }
   </script>
+
 </body>
 </html>
