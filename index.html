@@ -4,7 +4,7 @@
   <meta name="google-site-verification" content="LK_pZZTzdzV5l4wODIUJ3k2Yi003BzjUcP0Yzzrl6OI" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Split 12x is a clean and intuitive splits software for speedrunners. Track all your split times. Free and easy to use">
+  <meta name="description" content="Split 12x is a clean and intuitive splits software for speedrunners. Track all your split times. Free and easy to use.">
   <meta name="keywords" content="splits software, speedrun timer, LiveSplit alternative, speedrunning tool, splits tracker, splits overlay, timer overlay">
   <link rel="canonical" href="https://split12x.org" />
   <link rel="icon" type="image/png" href="favicon.png">
@@ -21,7 +21,7 @@
 
         <a href="Split12x.zip" download class="download-button" onclick="trackDownload()">Download</a>
 
-        <p class="download-count" id="downloadCount">Loading download count...</p>
+        <p class="download-count" id="downloadCount">Downloaded 0 times</p>
         <p class="note">Includes executable and configuration files. Windows only.</p>
       </div>
       <div class="image-section">
@@ -33,12 +33,9 @@
   <script>
     const counterEl = document.getElementById("downloadCount");
 
-    // Fetch global count from Netlify Function
+    // Get current count
     fetch("/.netlify/functions/counter")
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to fetch count.");
-        return res.json();
-      })
+      .then(res => res.ok ? res.json() : Promise.reject())
       .then(data => {
         counterEl.textContent = `Downloaded ${data.count} time${data.count !== 1 ? 's' : ''}`;
       })
@@ -46,10 +43,10 @@
         counterEl.textContent = "Download count unavailable.";
       });
 
-    // Update counter on download
+    // Update count only when download is clicked
     function trackDownload() {
       fetch("/.netlify/functions/counter", { method: "POST" })
-        .then(res => res.json())
+        .then(res => res.ok ? res.json() : Promise.reject())
         .then(data => {
           counterEl.textContent = `Downloaded ${data.count} time${data.count !== 1 ? 's' : ''}`;
         })
