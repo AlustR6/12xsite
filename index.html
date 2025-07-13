@@ -4,7 +4,7 @@
   <meta name="google-site-verification" content="LK_pZZTzdzV5l4wODIUJ3k2Yi003BzjUcP0Yzzrl6OI" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Split 12x is a clean and intuitive splits software for speedrunners. Track all your split times. Free and easy to use.">
+  <meta name="description" content="Split 12x is a clean and intuitive splits software for speedrunners. Track all your split times. Free and easy to use">
   <meta name="keywords" content="splits software, speedrun timer, LiveSplit alternative, speedrunning tool, splits tracker, splits overlay, timer overlay">
   <link rel="canonical" href="https://split12x.org" />
   <link rel="icon" type="image/png" href="favicon.png">
@@ -13,20 +13,18 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header">
-    <a href="/" class="header-logo">
+  <header class="header">
+    <a href="index.html" class="logo-link">
       <img src="Split12xLogo.png" alt="Split 12x Logo" />
       <span>Split 12x</span>
     </a>
-    <nav class="header-nav">
-      <a href="#how-to-use">How to Use</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav-links">
+      <a href="/how-to-use.html">How to Use</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main class="card">
     <div class="content">
       <div class="text-section">
@@ -36,7 +34,7 @@
 
         <a href="Split12x.zip" download class="download-button" onclick="trackDownload()">Download</a>
 
-        <p class="download-count" id="downloadCount">Downloaded 0 times</p>
+        <p class="download-count" id="downloadCount">Loading download count...</p>
         <p class="note">Includes executable and configuration files. Windows only.</p>
       </div>
       <div class="image-section">
@@ -48,8 +46,12 @@
   <script>
     const counterEl = document.getElementById("downloadCount");
 
+    // Only fetch count for display
     fetch("/.netlify/functions/counter")
-      .then(res => res.ok ? res.json() : Promise.reject())
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to fetch count.");
+        return res.json();
+      })
       .then(data => {
         counterEl.textContent = `Downloaded ${data.count} time${data.count !== 1 ? 's' : ''}`;
       })
@@ -57,9 +59,10 @@
         counterEl.textContent = "Download count unavailable.";
       });
 
+    // Update counter only on download click
     function trackDownload() {
       fetch("/.netlify/functions/counter", { method: "POST" })
-        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(res => res.json())
         .then(data => {
           counterEl.textContent = `Downloaded ${data.count} time${data.count !== 1 ? 's' : ''}`;
         })
