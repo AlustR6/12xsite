@@ -1,49 +1,39 @@
 const admin = require('firebase-admin');
-const path = require('path');
-const fs = require('fs');
-
-// Dynamically resolve the absolute path to firebase-key.json at the root
-const serviceAccountPath = path.resolve(process.cwd(), 'netlify/functions/firebase-key.json');
-
-// Optional debug
-if (!fs.existsSync(serviceAccountPath)) {
-  console.error('🔥 firebase-key.json not found at:', serviceAccountPath);
-  throw new Error('Missing firebase-key.json');
-}
-
-const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf-8'));
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    }),
   });
 }
 
 const db = admin.firestore();
-const counterDoc = db.collection('downloads').doc('count');
 
-exports.handler = async function (event) {
+exports.handler = async function () {
   try {
-    if (event.httpMethod === 'POST') {
-      await db.runTransaction(async (t) => {
-        const doc = await t.get(counterDoc);
-        const newCount = (doc.exists ? doc.data().value : 0) + 1;
-        t.set(counterDoc, { value: newCount });
-      });
+    const docRef = db.collection('downloads').doc('counter');
+    const doc = await docRef.get();
+
+    let count = 0;
+    if (doc.exists) {
+      count = doc.data().count || 0;
     }
 
-    const doc = await counterDoc.get();
-    const count = doc.exists ? doc.data().value : 0;
+    count++;
+    await docRef.set({ count });
 
     return {
       statusCode: 200,
       body: JSON.stringify({ count }),
     };
   } catch (err) {
-    console.error('❌ Counter error:', err);
+    console.error('🔥 Firestore Error:', err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to access counter' }),
+      body: JSON.stringify({ error: 'Internal Server Error' }),
     };
   }
 };
