@@ -23,23 +23,39 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-exports.handler = async function () {
+exports.handler = async function (event) {
   try {
     const docRef = db.collection('downloads').doc('counter');
-    const doc = await docRef.get();
 
-    let count = 0;
-    if (doc.exists) {
-      count = doc.data().count || 0;
+    if (event.httpMethod === 'POST') {
+      // Increment the count
+      const doc = await docRef.get();
+      let count = 0;
+      if (doc.exists) {
+        count = doc.data().count || 0;
+      }
+      count++;
+      await docRef.set({ count });
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ count }),
+      };
+    } else if (event.httpMethod === 'GET') {
+      // Just fetch the current count
+      const doc = await docRef.get();
+      const count = doc.exists ? doc.data().count || 0 : 0;
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ count }),
+      };
+    } else {
+      return {
+        statusCode: 405,
+        body: JSON.stringify({ error: 'Method Not Allowed' }),
+      };
     }
-
-    count++;
-    await docRef.set({ count });
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ count }),
-    };
   } catch (err) {
     console.error('🔥 Firestore Error:', err);
     return {
