@@ -1,11 +1,22 @@
 const admin = require('firebase-admin');
 
+// Only initialize Firebase once
 if (!admin.apps.length) {
+  const projectId = process.env.FIREBASE_PROJECT_ID;
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+  const rawPrivateKey = process.env.FIREBASE_PRIVATE_KEY;
+
+  if (!projectId || !clientEmail || !rawPrivateKey) {
+    throw new Error('Missing Firebase environment variables');
+  }
+
+  const privateKey = rawPrivateKey.replace(/\\n/g, '\n');
+
   admin.initializeApp({
     credential: admin.credential.cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      projectId,
+      clientEmail,
+      privateKey,
     }),
   });
 }
